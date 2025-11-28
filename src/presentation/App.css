@@ -1,0 +1,96 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.weather-info-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.main-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.main-info-container img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.temp-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.additional-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* равномерно по ширине */
+  gap: 10px;
+  border-radius: 8px;
+}
+
+p {
+  margin: 0;
+}
+
+.input-container {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.text-input {
+  padding: 8px;
+  flex: 1;
+  border: 0px;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+}
+
+.search-button {
+  border-radius: 0 6px 6px 0;
+  outline: none;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+}
+
+.search-button:hover {
+  outline: none;
+  background-color: #0056b3;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.search-button:active {
+  background-color: #004494;
+  transform: scale(0.98);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
