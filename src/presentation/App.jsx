@@ -1,41 +1,36 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
-import { getCurrentWeather } from "../data/WeatherApi";
 // eslint-disable-next-line no-unused-vars
 import TextField from "./components/InputTextField";
 import WeatherState from "../data/WeatherState";
 import WeatherInfo from "./components/WeatherInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWeatherRequest } from "../store/weatherSlice";
 
 function App() {
-  const [weatherState, setWeatherState] = useState({
-    status: WeatherState.INIT,
-    data: null,
-  });
-  const [textFieldState, setTextFiledState] = useState("");
-  const [searchButtonState, setSearchButtonState] = useState(false);
+  const dispatch = useDispatch();
+  const { status, data } = useSelector((state) => state.weather);
 
-  useEffect(() => {
-    if (textFieldState === "") {
-      return;
-    }
+  const handleCity = (city) => {
+    dispatch(fetchWeatherRequest({ city }));
+  };
 
-    (async () => {
-      const data = await getCurrentWeather(textFieldState);
-      setWeatherState(data);
-    })();
-  }, [searchButtonState]);
+  const [textFieldState, setTextFieldState] = useState("");
 
   let content;
 
-  switch (weatherState.status) {
+  switch (status) {
     case WeatherState.INIT:
       content = <p>{WeatherState.INIT}</p>;
+      break;
+    case WeatherState.LOADING:
+      content = <p>{WeatherState.LOADING}</p>;
       break;
     case WeatherState.INCORRECT_TEXT:
       content = <p>{WeatherState.INCORRECT_TEXT}</p>;
       break;
     case WeatherState.SUCCESS:
-      content = WeatherInfo(weatherState.data.current);
+      content = WeatherInfo(data.current);
       break;
     default:
       content = <p>{WeatherState.ERROR}</p>;
@@ -45,8 +40,8 @@ function App() {
     <div>
       <TextField
         value={textFieldState}
-        onValueChange={setTextFiledState}
-        onSearchClick={() => setSearchButtonState(!searchButtonState)}
+        onValueChange={setTextFieldState}
+        onSearchClick={() => handleCity(textFieldState)}
       />
       {content}
     </div>
